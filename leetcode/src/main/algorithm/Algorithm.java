@@ -50,4 +50,35 @@ public class Algorithm {
         return max;
     }
 
+    // 盛最多水的容器
+    private int maxArea(int[] height) {
+        int maxArea = 0;
+        int i = 0;
+        int j = height.length - 1;
+        while (i <= j) {
+            maxArea = Math.max(maxArea, Math.min(height[i], height[j]) * (j - i));
+            if (height[i] > height[j]) {
+                j--;
+            } else {
+                i++;
+            }
+        }
+        return maxArea;
+    }
+
+    // 最长公共前缀
+    public String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length == 0) {
+            return "";
+        }
+        String ans = strs[0];
+        for (int i = 1; i < strs.length; i++) {
+            int j = 0;
+            while (j < ans.length() && j < strs[i].length() && ans.charAt(j) == strs[i].charAt(j)) {
+                j++;
+            }
+            ans = strs[i].substring(0, j);
+        }
+        return ans;
+    }
 }
