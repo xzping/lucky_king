@@ -81,4 +81,29 @@ public class Algorithm {
         }
         return ans;
     }
+
+    // 链表反转，p->q->r
+    public ListNode reverseList(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode p = head;
+        ListNode q = head.next;
+        head.next = null;
+        ListNode r = null;
+        while (q != null) {
+            r = q.next;
+            q.next = p;
+            p = q;
+            q = r;
+        }
+        head = p;
+        return head;
+    }
+}
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int val) {
+        this.val = val;
+    }
 }
