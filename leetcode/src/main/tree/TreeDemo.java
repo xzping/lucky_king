@@ -2,7 +2,7 @@ package main.tree;
 
 import java.util.*;
 
-public class TreeTest {
+public class TreeDemo {
     /* 前序遍历 */
     public void preOrderTraversal(TreeNode root) {
         if (root == null) {
