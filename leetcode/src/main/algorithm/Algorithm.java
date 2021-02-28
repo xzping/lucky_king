@@ -132,7 +132,6 @@ public class Algorithm {
         } else {
             return mid;
         }
-        return -1;
     }
 }
 
