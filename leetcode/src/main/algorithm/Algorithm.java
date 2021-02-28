@@ -98,11 +98,48 @@ public class Algorithm {
         head = p;
         return head;
     }
+
+    // 二分查找
+    public int binarySearch(int[] nums, int target) {
+        if (nums == null || nums.length == 0) return -1;
+        int low = 0;
+        int high = nums.length - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (nums[mid] < target) {
+                high = mid - 1;
+            } else if (nums[mid] > target) {
+                low = mid + 1;
+            } else {
+                return mid;
+            }
+        }
+        return -1;
+    }
+
+    public int bSearch(int[] nums, int target) {
+        if (nums == null || nums.length == 0) return -1;
+        return bSearch(nums, target, 0, nums.length - 1);
+    }
+
+    private int bSearch(int[] nums, int target, int low, int high) {
+        if (low > high) return -1;
+        int mid = (low + high) / 2;
+        if (nums[mid] < target) {
+            return bSearch(nums, target, low, mid - 1);
+        } else if (nums[mid] > target) {
+            return bSearch(nums, target, mid + 1, high);
+        } else {
+            return mid;
+        }
+        return -1;
+    }
 }
 
 class ListNode {
     int val;
     ListNode next;
+
     ListNode(int val) {
         this.val = val;
     }
