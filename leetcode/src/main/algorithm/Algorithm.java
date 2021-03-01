@@ -133,6 +133,37 @@ public class Algorithm {
             return mid;
         }
     }
+
+    // 最大的岛屿面积-dfs
+    private int curArea;
+    private int res = 0;
+
+    public int maxAreaOfIsland(int[][] grid) {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                // 一个一个点进行寻找最大区域
+                if (grid[i][j] == 1) {
+                    curArea = 0;
+                    // 基于改点进行dfs
+                    maxArea(i, j, grid);
+                    res = Math.max(res, curArea);
+                }
+            }
+        }
+        return res;
+    }
+
+    private void maxArea(int i, int j, int[][] grid) {
+        if (i != -1 && i != grid.length && j != -1 && j != grid[i].length && grid[i][j] == 1) {
+            grid[i][j] = -1; // 标记下
+            curArea++;
+            // 继续四周递归寻找
+            maxArea(i - 1, j, grid);
+            maxArea(i + 1, j, grid);
+            maxArea(i, j - 1, grid);
+            maxArea(i, j + 1, grid);
+        }
+    }
 }
 
 class ListNode {
