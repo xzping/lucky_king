@@ -44,10 +44,10 @@ public class SortDemo {
             int current = arr[i + 1];
             int preIndex = i;
             while (preIndex >= 0 && current < arr[preIndex]) {
-                arr[preIndex + 1] = arr[preIndex];
+                arr[preIndex + 1] = arr[preIndex]; // 右移
                 preIndex--;
             }
-            arr[preIndex + 1] = current;
+            arr[preIndex + 1] = current; // 插入
         }
     }
 
@@ -57,6 +57,7 @@ public class SortDemo {
     }
 
     private void quickSort(int[] arr, int leftIndex, int rightIndex) {
+        // 递归退出的时机/条件
         if (leftIndex >= rightIndex) {
             return;
         }
