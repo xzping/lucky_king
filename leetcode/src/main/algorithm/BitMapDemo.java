@@ -57,20 +57,20 @@ public class BitMapDemo {
 
         System.out.println();
 
-        boolean isexsit_5 = bitmap.contain(5);
-        System.out.println("是否存在5：" + isexsit_5);
+        boolean isExist5 = bitmap.contain(5);
+        System.out.println("是否存在5：" + isExist5);
 
-        boolean isexsit_6 = bitmap.contain(6);
-        System.out.println("是否存在6：" + isexsit_6);
+        boolean isExist6 = bitmap.contain(6);
+        System.out.println("是否存在6：" + isExist6);
 
-        boolean isexsit_7 = bitmap.contain(7);
-        System.out.println("是否存在7：" + isexsit_7);
+        boolean isExist7 = bitmap.contain(7);
+        System.out.println("是否存在7：" + isExist7);
 
-        boolean isexsit_10 = bitmap.contain(10);
-        System.out.println("是否存在10：" + isexsit_10);
+        boolean isExist10 = bitmap.contain(10);
+        System.out.println("是否存在10：" + isExist10);
 
         bitmap.clear(10);
-        boolean isexsit_10_2 = bitmap.contain(10);
-        System.out.println("是否存在10：" + isexsit_10_2);
+        boolean isExist10_2 = bitmap.contain(10);
+        System.out.println("是否存在10：" + isExist10_2);
     }
 }
