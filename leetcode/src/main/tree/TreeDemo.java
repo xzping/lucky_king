@@ -109,6 +109,25 @@ public class TreeDemo {
         return result;
     }
 
+    public List<Integer> postOrderTraversal3(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
+                stack.push(root);
+                res.add(root.val);
+                root = root.right;
+            }
+            root = stack.pop();
+            root = root.left;
+        }
+        Collections.reverse(res);
+        return res;
+    }
+
     /* 层级遍历 */
     public List<Integer> levelOrderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
@@ -142,10 +161,10 @@ public class TreeDemo {
         queue.add(root);
         while (!queue.isEmpty()) {
             int n = queue.size();
-            List<Integer> sub_res = new ArrayList<>();
+            List<Integer> subRes = new ArrayList<>();
             for (int i = 0; i < n; i++) {
                 TreeNode node = queue.poll();
-                sub_res.add(node.val);
+                subRes.add(node.val);
                 if (node.left != null) {
                     queue.add(node.left);
                 }
@@ -153,7 +172,7 @@ public class TreeDemo {
                     queue.add(node.right);
                 }
             }
-            result.add(sub_res);
+            result.add(subRes);
         }
         return result;
     }
