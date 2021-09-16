@@ -1,8 +1,6 @@
 package main.algorithm;
 
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Set;
+import java.util.*;
 
 public class LRUCache {
     private LinkedHashMap<Integer, Integer> cache;
@@ -37,5 +35,46 @@ public class LRUCache {
             cache.remove(iterator.next());
         }
         cache.put(key, value); // 插入到链表尾部
+    }
+}
+
+class LRUCache2 {
+    private Map<Integer,Integer> map;
+    private int capacity;
+
+    private LRUCache2(int capacity) {
+        this.capacity = capacity;
+        map = new LinkedHashMap<Integer, Integer>(capacity, 0.75f, true) {
+            @Override
+            protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
+                return size() > capacity;
+            }
+        };
+    }
+
+    private int get(int key) {
+        return map.getOrDefault(key, -1);
+    }
+}
+
+class LRUCache3 extends LinkedHashMap<Integer, Integer> {
+    private int capacity;
+
+    public LRUCache3(int capacity) {
+        super(capacity, 0.75f, true);
+        this.capacity = capacity;
+    }
+
+    public int get(int key) {
+        return super.getOrDefault(key, -1);
+    }
+
+    public void put(int key, int value) {
+        super.put(key, value);
+    }
+
+    @Override
+    protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
+        return size() > capacity;
     }
 }
