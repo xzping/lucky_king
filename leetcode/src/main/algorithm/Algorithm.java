@@ -2,7 +2,9 @@ package main.algorithm;
 
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 
 public class Algorithm {
     private int[] twoNum(int[] nums, int target) {
@@ -164,6 +166,55 @@ public class Algorithm {
             maxArea(i, j + 1, grid);
         }
     }
+
+    // 深度优先遍历
+    public int sumNumbers(TreeNode root) {
+        dfs(root, 0);
+        return 0;
+    }
+
+    private int dfs(TreeNode root, int prevSum) {
+        if (root == null) return 0;
+        int sum = prevSum * 10 + root.val;
+        if (root.left == null && root.right == null) {
+            return sum;
+        } else {
+            return dfs(root.left, sum) + dfs(root.right, sum);
+        }
+    }
+
+    // 广度优先遍历
+    public int sumNumbers2(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        Queue<Integer> numQueue = new LinkedList<>();
+        queue.offer(root);
+        numQueue.offer(root.val);
+        int sum = 0;
+        while (!queue.isEmpty()) {
+            TreeNode tmp = queue.poll();
+            int num = numQueue.poll();
+            if (tmp.left == null && tmp.right == null) {
+                sum += num;
+            } else {
+                if (tmp.left != null) {
+                    queue.offer(tmp.left);
+                    numQueue.offer(num * 10 + tmp.left.val);
+                }
+                if (tmp.right != null) {
+                    queue.offer(tmp.right);
+                    numQueue.offer(num * 10 + tmp.right.val);
+                }
+            }
+        }
+        return sum;
+    }
+
+    public static void main(String[] args) {
+        String s = "abcabcbb";
+        Algorithm algorithm = new Algorithm();
+        System.out.println(algorithm.lengthOfLongestSubstring(s));
+    }
 }
 
 class ListNode {
@@ -173,4 +224,11 @@ class ListNode {
     ListNode(int val) {
         this.val = val;
     }
+}
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    // construction...
 }
