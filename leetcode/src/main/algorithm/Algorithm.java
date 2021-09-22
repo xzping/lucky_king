@@ -1,10 +1,9 @@
 package main.algorithm;
 
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
+import sun.nio.ch.FileKey;
+
+import java.util.*;
 
 public class Algorithm {
     private int[] twoNum(int[] nums, int target) {
@@ -208,6 +207,75 @@ public class Algorithm {
             }
         }
         return sum;
+    }
+
+    // 锯齿形层序遍历
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) return res;
+        List<List<Integer>> tmpList = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        boolean flag = true;
+        // 正常的层序遍历
+        while (!queue.isEmpty()) {
+            int l = queue.size();
+            List<Integer> inner = new ArrayList<>();
+            for (int i = 0; i < l; i++) {
+                TreeNode tmp = queue.poll();
+                inner.add(tmp.val);
+                if (tmp.left != null) {
+                    queue.offer(tmp.left);
+                }
+                if (tmp.right != null) {
+                    queue.offer(tmp.right);
+                }
+            }
+            tmpList.add(inner);
+        }
+
+        // 对层序遍历结果进行隔层反转
+        for (List<Integer> l : tmpList) {
+            if (flag) {
+                res.add(l);
+                flag = false;
+            } else {
+                Collections.reverse(l);
+                res.add(l);
+                flag = true;
+            }
+        }
+        return res;
+    }
+
+    // 锯齿形层序遍历
+    public List<List<Integer>> zigzagLevelOrder2(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        boolean flag = true;
+        while (!queue.isEmpty()) {
+            Deque<Integer> deque = new LinkedList<>();
+            int l = queue.size();
+            for (int i = 0; i < l; i++) {
+                TreeNode tmp = queue.poll();
+                if (!flag) {
+                    deque.offerFirst(tmp.val);
+                } else {
+                    deque.offerLast(tmp.val);
+                }
+                if (tmp.left != null) {
+                    queue.offer(tmp.left);
+                }
+                if (tmp.right != null) {
+                    queue.offer(tmp.right);
+                }
+            }
+            res.add(new ArrayList<>(deque));
+            flag = !flag;
+        }
+        return res;
     }
 
     public static void main(String[] args) {
