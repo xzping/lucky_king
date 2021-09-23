@@ -1,4 +1,4 @@
-package main.design.proxy.cglib;
+package design.proxy.cglib;
 
 public class bizService {
     public static void main(String[] args) {

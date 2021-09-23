@@ -1,4 +1,4 @@
-package main.design.proxy.cglib;
+package design.proxy.cglib;
 
 import net.sf.cglib.proxy.MethodInterceptor;
 

@@ -1,4 +1,4 @@
-package main.tree;
+package tree;
 
 import java.util.*;
 

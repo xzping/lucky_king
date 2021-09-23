@@ -1,4 +1,4 @@
-package main.design.factory.simple;
+package design.factory.simple;
 
 public class ShapeFactory {
     public static Shape getShape(String type) {

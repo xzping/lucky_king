@@ -1,6 +1,4 @@
-package test.sort;
-
-import javax.swing.*;
+package sort;
 
 public class Sort {
     public static void bubbleSort(int[] arr) {

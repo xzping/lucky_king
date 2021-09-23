@@ -1,4 +1,4 @@
-package main.design.proxy.cglib;
+package design.proxy.cglib;
 
 public class LoginServiceImpl {
     public void login(String username, String password) {

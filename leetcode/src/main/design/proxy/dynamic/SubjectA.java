@@ -1,4 +1,4 @@
-package main.design.proxy.dynamic;
+package design.proxy.dynamic;
 
 public interface SubjectA {
     void setUser(String username, String password);

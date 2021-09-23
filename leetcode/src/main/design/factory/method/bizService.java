@@ -1,4 +1,4 @@
-package main.design.factory.method;
+package design.factory.method;
 
 public class bizService {
     public static void main(String[] args) {

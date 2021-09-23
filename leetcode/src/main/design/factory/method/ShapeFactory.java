@@ -1,4 +1,4 @@
-package main.design.factory.method;
+package design.factory.method;
 
 public interface ShapeFactory {
     Shape getShape();
