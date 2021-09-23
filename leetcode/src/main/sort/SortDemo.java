@@ -13,7 +13,7 @@ public class SortDemo {
                     arr[j + 1] = arr[j];
                     arr[j] = temp;
                 }
-            }s
+            }
         }
     }
 
