@@ -71,7 +71,6 @@ public class LinkDemo {
         }
         return ans;
     }
-
 }
 
 class ListNode {
