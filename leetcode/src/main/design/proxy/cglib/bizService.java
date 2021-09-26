@@ -1,5 +1,7 @@
 package design.proxy.cglib;
 
+import net.sf.cglib.proxy.Enhancer;
+
 public class bizService {
     public static void main(String[] args) {
         Enhancer enhancer = new Enhancer();
