@@ -3,6 +3,7 @@ package algorithm;
 import java.util.*;
 
 public class Algorithm {
+    //
     private int[] twoNum(int[] nums, int target) {
         Map<Integer, Integer> hashtable = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
@@ -12,6 +13,23 @@ public class Algorithm {
             hashtable.put(nums[i], i);
         }
         return new int[0];
+    }
+
+    // 两整数之和
+    public int getSum(int a, int b) {
+        while (b != 0) {
+            int carry = (a & b) << 1;
+            a = a ^ b;
+            b = carry;
+        }
+        return a;
+    }
+
+    // 递归
+    public int getSum2(int a, int b) {
+        // a^b 无进位的加法
+        // (a&b)<<1 进位
+        return (b == 0) ? a : getSum2(a ^ b, (a & b) << 1);
     }
 
     // 无重复字符的最长子串
@@ -279,6 +297,8 @@ public class Algorithm {
         String s = "abcabcbb";
         Algorithm algorithm = new Algorithm();
         System.out.println(algorithm.lengthOfLongestSubstring(s));
+
+        System.out.println(algorithm.getSum2(2, 3));
     }
 }
 
