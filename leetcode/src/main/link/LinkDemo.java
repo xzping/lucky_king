@@ -108,6 +108,55 @@ public class LinkDemo {
         prev.next = (l1 == null) ? l2 : l1;
         return preHead.next;
     }
+
+    // 两两交换链表中的节点
+    public ListNode swapPairs(ListNode head) {
+        // head -> newHead  =>  head <- newHead
+        // head.next = 下一批newHead的交换结果
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode newHead = head.next;
+        head.next = swapPairs(newHead.next);
+        newHead.next = head;
+        return newHead;
+    }
+
+    // 分隔链表
+
+    /**
+     * 直观来说我们只需维护两个链表small和large即可，small链表按顺序存储所有小于 xx 的节点，large链表按顺序存储所有大于等于xx的节点。遍历完原链表后，我们只要将small链表尾节点指向large链表的头节点即能完成对链表的分隔。
+     *
+     * 为了实现上述思路，我们设smallHead和largeHead分别为两个链表的哑节点，即它们的next指针指向链表的头节点，这样做的目的是为了更方便地处理头节点为空的边界条件。同时设small和large节点指向当前链表的末尾节点。
+     * 开始时smallHead = small，largeHead = large。随后，从前往后遍历链表，判断当前链表的节点值是否小于 xx，如果小于就将small的next指针指向该节点，否则将large的next指针指向该节点。
+     *
+     * 遍历结束后，我们将large的next指针置空，这是因为当前节点复用的是原链表的节点，而其next指针可能指向一个小于xx的节点，我们需要切断这个引用。同时将small的next指针指向largeHead的next指针指向的节点，即真正意义上的large链表的头节点。最后返回smallHead的next 指针即为我们要求的答案。
+     *
+     * @param head
+     * @param x
+     * @return
+     */
+    public ListNode partition(ListNode head, int x) {
+        ListNode small = new ListNode(-1);
+        ListNode smallHead = small;
+        ListNode large = new ListNode(-1);
+        ListNode largeHead = large;
+
+        while (head != null) {
+            if (head.val < x) {
+                small.next = head;
+                small = small.next;
+            } else {
+                large.next = head;
+                large = large.next;
+            }
+            head = head.next;
+        }
+
+        large.next = null;
+        small.next = largeHead.next;
+        return smallHead.next;
+    }
 }
 
 class ListNode {
