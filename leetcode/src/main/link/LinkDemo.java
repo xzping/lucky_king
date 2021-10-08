@@ -160,7 +160,23 @@ public class LinkDemo {
 
     // 是否为回文链表
     public boolean isPalindrome(ListNode head) {
-        return false;
+        // 反转链表
+        ListNode n1 = head;
+
+        ListNode n2 = null;
+        for (ListNode n = head; n != null; n = n.next) {
+            n2 = new ListNode(n.val, n2);
+        }
+
+        // 判断n1和n2是否相等
+        while (n1 != null && n2 != null) {
+            if (n1.val != n2.val) {
+                return false;
+            }
+            n1 = n1.next;
+            n2 = n2.next;
+        }
+        return true;
     }
 }
 
