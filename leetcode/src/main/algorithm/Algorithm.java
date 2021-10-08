@@ -304,7 +304,7 @@ public class Algorithm {
             cur = cur * 10 + num % 10;
             num /= 10;
         }
-        return cur == num;
+        return cur == x;
     }
 
     public static void main(String[] args) {
