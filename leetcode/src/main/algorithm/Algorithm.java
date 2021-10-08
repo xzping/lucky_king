@@ -3,7 +3,7 @@ package algorithm;
 import java.util.*;
 
 public class Algorithm {
-    //
+    // 两数之和
     private int[] twoNum(int[] nums, int target) {
         Map<Integer, Integer> hashtable = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
@@ -291,6 +291,20 @@ public class Algorithm {
             flag = !flag;
         }
         return res;
+    }
+
+    // 是否为回文数
+    public boolean isPalindrome(int x) {
+        if (x < 0) {
+            return false;
+        }
+        int cur = 0;
+        int num = x;
+        while (num != 0) {
+            cur = cur * 10 + num % 10;
+            num /= 10;
+        }
+        return cur == num;
     }
 
     public static void main(String[] args) {

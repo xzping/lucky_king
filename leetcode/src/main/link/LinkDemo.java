@@ -157,6 +157,11 @@ public class LinkDemo {
         small.next = largeHead.next;
         return smallHead.next;
     }
+
+    // 是否为回文链表
+    public boolean isPalindrome(ListNode head) {
+        return false;
+    }
 }
 
 class ListNode {
