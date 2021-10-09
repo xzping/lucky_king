@@ -1,5 +1,7 @@
 package tree;
 
+import javafx.scene.media.VideoTrack;
+
 import java.util.*;
 
 public class TreeDemo {
@@ -296,7 +298,35 @@ public class TreeDemo {
         }
         return result;
     }
+
     /* 二叉树的最近公共祖先 */
+    Map<Integer, TreeNode> parents = new HashMap<>(); // 记录每个节点的父节点
+    Set<Integer> visits = new HashSet<>(); // visits记录p节点的所有父节点
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        dfs(root);
+        while (p != null) {
+            visits.add(p.val);
+            p = parents.get(p.val); // 找到p的父节点
+        }
+
+        while (q != null) {
+            if (visits.contains(q.val)) {
+                return q;
+            }
+            q = parents.get(q.val);
+        }
+        return null;
+    }
+    private void dfs(TreeNode node) {
+        if (node.left != null) {
+            parents.put(node.left.val, node);
+            dfs(node.left);
+        }
+        if (node.right != null) {
+            parents.put(node.right.val, node);
+            dfs(node.right);
+        }
+    }
 
     /* 相同的树 */
     public boolean isSameTree(TreeNode p, TreeNode q) {

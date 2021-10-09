@@ -307,6 +307,39 @@ public class Algorithm {
         return cur == x;
     }
 
+    // 搜索旋转排序数组（旋转二分查找） 4 5 6 7 1 2  ||  6 7 1 2 3 4
+    public int search(int[] arr, int target) {
+        if (arr == null || arr.length == 0) return -1;
+        int low = 0;
+        int high = arr.length - 1;
+        while (low <= high) {
+            int mid = (high - low) / 2 + low;
+            if (target == arr[mid]) {
+                return mid;
+            }
+            // 4 5 6 7 1 2
+            if (arr[mid] >= arr[low]) {
+                // 左边
+                if (target < arr[mid] && target >= arr[low]) {
+                    high = mid - 1;
+                } else {
+                    // 右边
+                    low = mid + 1;
+                }
+            } else {
+                // 6 7 1 2 3 4
+                // 右边
+                if (target > arr[mid] && target <= arr[high]) {
+                    low = mid + 1;
+                } else {
+                    // 左边
+                    high = mid - 1;
+                }
+            }
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
         String s = "abcabcbb";
         Algorithm algorithm = new Algorithm();
