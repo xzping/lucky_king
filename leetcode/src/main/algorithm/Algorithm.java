@@ -422,6 +422,41 @@ public class Algorithm {
         return ret;
     }
 
+    // 前K个高频单词
+    public List<String> topKFrequent(String[] words, int k) {
+        Map<String, Integer> map = new HashMap<>();
+        for (String word : words) {
+            map.put(word, map.getOrDefault(word, 0) + 1);
+        }
+
+        PriorityQueue<TopKNode> queue = new PriorityQueue<>(new Comparator<TopKNode>() {
+            @Override
+            public int compare(TopKNode o1, TopKNode o2) {
+                return o1.count - o2.count;
+            }
+        });
+
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            String word = entry.getKey();
+            int count = entry.getValue();
+            if (queue.size() == k) {
+                if (queue.peek().count < count) {
+                    queue.poll();
+                    queue.offer(new TopKNode(word, count));
+                }
+            } else {
+                queue.offer(new TopKNode(word, count));
+            }
+        }
+
+        List<String> ret = new ArrayList<>();
+        for (int i = 0; i < k; i++) {
+            ret.add(queue.poll().word);
+        }
+        return ret;
+    }
+
+
     public static void main(String[] args) {
         String s = "abcabcbb";
         Algorithm algorithm = new Algorithm();
@@ -448,4 +483,14 @@ class TreeNode {
     TreeNode left;
     TreeNode right;
     // construction...
+}
+
+class TopKNode {
+    String word;
+    int count;
+
+    TopKNode(String word, int count) {
+        this.word = word;
+        this.count = count;
+    }
 }
