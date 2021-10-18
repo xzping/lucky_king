@@ -1,5 +1,8 @@
 package sort;
 
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
 public class SortDemo {
     /**
      * 冒泡排序
@@ -51,7 +54,34 @@ public class SortDemo {
         }
     }
 
-    // 快速排序
+    /**
+     * 堆排序
+     * topK
+     */
+    public int[] heapSort(int[] arr, int k) {
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+
+        for (int a : arr) {
+            if (queue.size() == k) {
+                if (queue.peek() < a) {
+                    queue.poll();
+                    queue.offer(a);
+                }
+            } else {
+                queue.offer(a);
+            }
+        }
+
+        int[] ret = new int[k];
+        for (int i = 0; i < k; i++) {
+            ret[i] = queue.poll();
+        }
+        return ret;
+    }
+
+    /**
+     * 快速排序
+     */
     public void quickSort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
@@ -99,7 +129,8 @@ public class SortDemo {
 //        demo.bubbleSort(arr);
 //        demo.selectionSort(arr);
 //        demo.insertionSort(arr);
-        demo.quickSort(arr);
+//        demo.quickSort(arr);
+        arr = demo.heapSort(arr, 3);
         for (int i : arr) {
             System.out.print(i + " ");
         }

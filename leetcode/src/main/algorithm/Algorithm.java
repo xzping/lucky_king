@@ -1,5 +1,8 @@
 package algorithm;
 
+import jdk.nashorn.internal.ir.IndexNode;
+
+import javax.sound.midi.Soundbank;
 import java.util.*;
 
 public class Algorithm {
@@ -340,12 +343,94 @@ public class Algorithm {
         return -1;
     }
 
+    // 合并2个非递减的数组
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int p1 = m - 1, p2 = n - 1;
+        int tail = m + n - 1;
+        int cur;
+        while (p1 >= 0 || p2 >= 0) {
+            if (p1 == -1) {
+                cur = nums2[p2--];
+            } else if (p2 == -1) {
+                cur = nums1[p1--];
+            } else if (nums1[p1] > nums2[p2]) {
+                cur = nums1[p1--];
+            } else {
+                cur = nums2[p2--];
+            }
+            nums1[tail--] = cur;
+        }
+    }
+
+    // 复原IP地址
+    public List<String> restoreIpAddresses(String s) {
+        List<String> res = new ArrayList<>();
+        if (s == null || s.length() == 0) return res;
+        for (int a = 1; a < 4; a++) {
+            for (int b = 1; b < 4; b++) {
+                for (int c = 1; c < 4; c++) {
+                    for (int d = 1; d < 4; d++) {
+                        if ((a + b + c + d) == s.length()) {
+                            int n1 = Integer.parseInt(s.substring(0, a));
+                            int n2 = Integer.parseInt(s.substring(a, a + b));
+                            int n3 = Integer.parseInt(s.substring(a + b, a + b + c));
+                            int n4 = Integer.parseInt(s.substring(a + b + c, a + b + c + d));
+                            if (n1 <= 255 && n2 <= 255 && n3 <= 255 && n4 <= 255) {
+                                String r = n1 + "." + n2 + "." + n3 + "." + n4;
+                                if (r.length() == s.length() + 3) { // 避免出现01被优化为1的情况
+                                    res.add(r);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return res;
+    }
+
+    // 基于小顶堆实现topK
+    public int[] topKFrequent(int[] nums, int k) {
+        // 先遍历数组，然后记录元素的频数集合
+        Map<Integer, Integer> occurrences = new HashMap<>();
+        for (int num : nums) {
+            occurrences.put(num, occurrences.getOrDefault(num, 0) + 1);
+        }
+
+        // 优先队列PriorityQueue是基于堆实现的队列（完全二叉树）
+        // int[] 的第一个元素代表数组的值，第二个元素代表了该值出现的次数
+        PriorityQueue<int[]> queue = new PriorityQueue<int[]>(new Comparator<int[]>() {
+            public int compare(int[] m, int[] n) {
+                return m[1] - n[1];
+            }
+        });
+        for (Map.Entry<Integer, Integer> entry : occurrences.entrySet()) {
+            int num = entry.getKey(), count = entry.getValue();
+            if (queue.size() == k) {
+                if (queue.peek()[1] < count) {
+                    queue.poll();
+                    queue.offer(new int[]{num, count});
+                }
+            } else {
+                queue.offer(new int[]{num, count});
+            }
+        }
+        int[] ret = new int[k];
+        for (int i = 0; i < k; ++i) {
+            ret[i] = queue.poll()[0];
+        }
+        return ret;
+    }
+
     public static void main(String[] args) {
         String s = "abcabcbb";
         Algorithm algorithm = new Algorithm();
         System.out.println(algorithm.lengthOfLongestSubstring(s));
 
         System.out.println(algorithm.getSum2(2, 3));
+
+        String ip = "25525511135";
+        System.out.println(algorithm.restoreIpAddresses(ip));
     }
 }
 
