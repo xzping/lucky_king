@@ -390,6 +390,7 @@ public class Algorithm {
     }
 
     // 基于小顶堆实现topK
+    // 分而治之 + 小顶堆
     public int[] topKFrequent(int[] nums, int k) {
         // 先遍历数组，然后记录元素的频数集合
         Map<Integer, Integer> occurrences = new HashMap<>();
