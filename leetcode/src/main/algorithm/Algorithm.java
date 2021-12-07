@@ -1,8 +1,5 @@
 package algorithm;
 
-import jdk.nashorn.internal.ir.IndexNode;
-
-import javax.sound.midi.Soundbank;
 import java.util.*;
 
 public class Algorithm {
@@ -469,6 +466,34 @@ public class Algorithm {
             }
         }
         return ans;
+    }
+
+    // 删除有序数组中的重复项
+    public int removeDuplicates(int[] nums) {
+        if (nums.length == 0) return 0;
+        int index = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] != nums[i - 1]) {
+                index++;
+            }
+            nums[index] = nums[i];
+        }
+        return index + 1;
+    }
+
+    // 删除有序数组中的重复项（双指针实现）
+    public int removeDuplicates2(int[] nums) {
+        if (nums.length == 0) return 0;
+        int slow = 1, fast = 1;
+        int len = nums.length;
+        while (fast < len) {
+            if (nums[fast] != nums[fast - 1]) {
+                nums[slow] = nums[fast];
+                ++slow;
+            }
+            ++fast;
+        }
+        return slow;
     }
 
     public static void main(String[] args) {
