@@ -496,6 +496,38 @@ public class Algorithm {
         return slow;
     }
 
+    // 链表是否有环
+    public boolean hasCycle(ListNode head) {
+        Set<ListNode> nodes = new HashSet<>();
+        while (head != null) {
+            if (nodes.contains(head)) {
+                return true;
+            }
+            nodes.add(head);
+            head = head.next;
+        }
+        return false;
+    }
+
+    // 链表是否有环，快慢指针(有环的话，快慢指针终会相遇)
+    public boolean hasCycle2(ListNode head) {
+        if (head == null || head.next == null) {
+            return false;
+        }
+
+        ListNode fast = head.next.next;
+        ListNode slow = head.next;
+        while (slow != fast) {
+            if (fast == null || fast.next == null) {
+                return false;
+            }
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return true;
+    }
+
+
     public static void main(String[] args) {
         String s = "abcabcbb";
         Algorithm algorithm = new Algorithm();
