@@ -292,20 +292,6 @@ public class Algorithm {
         return res;
     }
 
-    // 是否为回文数
-    public boolean isPalindrome(int x) {
-        if (x < 0) {
-            return false;
-        }
-        int cur = 0;
-        int num = x;
-        while (num != 0) {
-            cur = cur * 10 + num % 10;
-            num /= 10;
-        }
-        return cur == x;
-    }
-
     // 搜索旋转排序数组（旋转二分查找） 4 5 6 7 1 2  ||  6 7 1 2 3 4
     public int search(int[] arr, int target) {
         if (arr == null || arr.length == 0) return -1;
@@ -526,6 +512,154 @@ public class Algorithm {
         return true;
     }
 
+    // 是否为回文数
+    public boolean isPalindrome(int x) {
+        if (x < 0) {
+            return false;
+        }
+        int cur = 0;
+        int num = x;
+        while (num != 0) {
+            cur = cur * 10 + num % 10;
+            num /= 10;
+        }
+        return cur == x;
+    }
+
+    // 是否为回文串
+    public boolean isPalindromeString(String s) {
+        if (s.length() == 0) {
+            return false;
+        }
+
+        if (s.length() == 1) {
+            return true;
+        }
+
+        int left = 0;
+        int right = s.length() - 1;
+        while (left <= right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                return false;
+            } else {
+                left++;
+                right--;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 回文子串，dp问题
+     * 给你一个字符串 s ，请你统计并返回这个字符串中 回文子串 的数目。
+     *
+     * P(i, j) = P(i+1, j-1)&(Si==Sj) // 长度大于3
+     * P(i, i) = true // 长度为1
+     * P(i, i+1) = (Si == Si+1) // 长度为2
+     */
+    public int countSubstrings(String s) {
+        int len = s.length();
+        if (len <= 1) {
+            return len;
+        }
+
+        int count = 0;
+
+        // dp[i][j]表示s[i...j]是否为回文串
+        boolean[][] dp = new boolean[len][len];
+
+        // 初始化，所有长度为1的子串都是回文串
+        for (int i = 0; i < len; i++) {
+            dp[i][i] = true;
+            count++;
+        }
+
+        // 递归开始
+        // 先枚举子串长度
+        char[] charArray = s.toCharArray();
+        for (int i = 2; i <= len; i++) {
+            for (int l = 0; l < len; l++) {
+                int r = l + i - 1;
+                if (r >= len) {
+                    break;
+                }
+                if (charArray[l] != charArray[r]) {
+                    dp[l][r] = false;
+                } else {
+                    if (r - l < 3) {
+                        dp[l][r] = true;
+                    } else {
+                        dp[l][r] = dp[l + 1][r - 1];
+                    }
+                }
+
+                if (dp[l][r]) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    /**
+     * 最长回文子串，dp问题
+     * <p>
+     * P(i, j) = P(i+1, j-1)&(Si==Sj) // 长度大于3
+     * P(i, i) = true // 长度为1
+     * P(i, i+1) = (Si == Si+1) // 长度为2
+     *
+     * @param s
+     * @return
+     */
+    public String longestPalindrome(String s) {
+        int len = s.length();
+        if (len <= 1) {
+            return s;
+        }
+
+        int maxLen = 1;
+        int begin = 0;
+
+        // dp[i][j]表示s[i...j]是否为回文串
+        boolean[][] dp = new boolean[len][len];
+
+        // 初始化，所有长度为1的子串都是回文串
+        for (int i = 0; i < len; i++) {
+            dp[i][i] = true;
+        }
+
+        // 递归开始
+        // 先枚举子串长度
+        char[] charArray = s.toCharArray();
+        for (int i = 2; i <= len; i++) {
+            // 枚举左边界，左边界的上限设置可以宽松一些
+            for (int l = 0; l < len; l++) {
+                // 由i和j可以确定右边界，即r-j+1=i
+                int r = i + l - 1; // 右边界
+                if (r >= len) {
+                    break; // 越界退出
+                }
+
+                if (charArray[l] != charArray[r]) {
+                    dp[l][r] = false;
+                } else {
+                    if (r - l < 3) {
+                        dp[l][r] = true; // 长度为2
+                    } else {
+                        dp[l][r] = dp[l + 1][r - 1];
+                    }
+                }
+
+                if (dp[l][r] && r - l + 1 > maxLen) {
+                    maxLen = r - l + 1;
+                    begin = l;
+                }
+            }
+        }
+
+        return s.substring(begin, begin + maxLen);
+    }
 
     public static void main(String[] args) {
         String s = "abcabcbb";
@@ -539,6 +673,8 @@ public class Algorithm {
 
         String s2 = "abbcccddddeeeeedcba";
         System.out.println(algorithm.maxPower(s2));
+
+        System.out.println(algorithm.isPalindromeString("abaa"));
     }
 }
 
