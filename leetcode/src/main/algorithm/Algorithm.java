@@ -183,12 +183,11 @@ public class Algorithm {
 
     // 深度优先遍历
     public int sumNumbers(TreeNode root) {
-        dfs(root, 0);
-        return 0;
+        return dfs(root, 0);
     }
 
     private int dfs(TreeNode root, int prevSum) {
-        if (root == null) return 0;
+        if (root == null) return prevSum;
         int sum = prevSum * 10 + root.val;
         if (root.left == null && root.right == null) {
             return sum;
