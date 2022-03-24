@@ -187,7 +187,7 @@ public class Algorithm {
     }
 
     private int dfs(TreeNode root, int prevSum) {
-        if (root == null) return prevSum;
+        if (root == null) return 0;
         int sum = prevSum * 10 + root.val;
         if (root.left == null && root.right == null) {
             return sum;
@@ -629,14 +629,15 @@ public class Algorithm {
             dp[i][i] = true;
         }
 
-        // 递归开始
-        // 先枚举子串长度
         char[] charArray = s.toCharArray();
-        for (int i = 2; i <= len; i++) {
+
+        // 递归开始
+        // 先枚举子串长度/窗口，长度先从2开始（1的已经初始化过了）
+        for (int window = 2; window <= len; window++) {
             // 枚举左边界，左边界的上限设置可以宽松一些
             for (int l = 0; l < len; l++) {
-                // 由i和j可以确定右边界，即r-j+1=i
-                int r = i + l - 1; // 右边界
+                // 由i和j可以确定右边界，即r-l+1=LENGTH
+                int r = window + l - 1; // 右边界
                 if (r >= len) {
                     break; // 越界退出
                 }
@@ -651,8 +652,8 @@ public class Algorithm {
                     }
                 }
 
-                if (dp[l][r] && r - l + 1 > maxLen) {
-                    maxLen = r - l + 1;
+                if (dp[l][r] && window > maxLen) {
+                    maxLen = window;
                     begin = l;
                 }
             }
