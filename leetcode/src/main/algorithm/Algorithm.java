@@ -552,7 +552,7 @@ public class Algorithm {
     /**
      * 回文子串，dp问题
      * 给你一个字符串 s ，请你统计并返回这个字符串中 回文子串 的数目。
-     *
+     * <p>
      * P(i, j) = P(i+1, j-1)&(Si==Sj) // 长度大于3
      * P(i, i) = true // 长度为1
      * P(i, i+1) = (Si == Si+1) // 长度为2
@@ -660,6 +660,42 @@ public class Algorithm {
         }
 
         return s.substring(begin, begin + maxLen);
+    }
+
+    // 只出现一次的数字，其余均出现2次 -> 异或实现
+    public int singleNumber(int[] nums) {
+        int ret = 0;
+        for (int num : nums) {
+            ret ^= num;
+        }
+        return ret;
+    }
+
+    // 链表中的两数相加
+    public ListNode addTwoListNumbers(ListNode l1, ListNode l2) {
+        Deque<Integer> stack1 = new ArrayDeque<Integer>();
+        Deque<Integer> stack2 = new ArrayDeque<Integer>();
+        while (l1 != null) {
+            stack1.push(l1.val);
+            l1 = l1.next;
+        }
+        while (l2 != null) {
+            stack2.push(l2.val);
+            l2 = l2.next;
+        }
+        int carry = 0;
+        ListNode ans = null;
+        while (!stack1.isEmpty() || !stack2.isEmpty() || carry != 0) {
+            int a = stack1.isEmpty() ? 0 : stack1.pop();
+            int b = stack2.isEmpty() ? 0 : stack2.pop();
+            int cur = a + b + carry;
+            carry = cur / 10;
+            cur %= 10;
+            ListNode curnode = new ListNode(cur);
+            curnode.next = ans;
+            ans = curnode;
+        }
+        return ans;
     }
 
     public static void main(String[] args) {
