@@ -1,4 +1,4 @@
-package main.design.singleton;
+package design.singleton;
 
 public class SingletonDemo {
 }

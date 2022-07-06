@@ -1,7 +1,5 @@
 package link;
 
-import java.util.List;
-
 public class LinkDemo {
     // 三节点
 

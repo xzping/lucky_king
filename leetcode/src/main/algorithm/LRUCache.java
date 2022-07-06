@@ -1,6 +1,9 @@
 package algorithm;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class LRUCache {
     private LinkedHashMap<Integer, Integer> cache;
@@ -39,7 +42,7 @@ public class LRUCache {
 }
 
 class LRUCache2 {
-    private Map<Integer,Integer> map;
+    private Map<Integer, Integer> map;
     private int capacity;
 
     private LRUCache2(int capacity) {
