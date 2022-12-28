@@ -729,6 +729,32 @@ public class Algorithm {
         return max;
     }
 
+    /**
+     * 颜色分类 0 1 2
+     * 双指针
+     *
+     * @param nums
+     */
+    public void sortColors(int[] nums) {
+        if (nums == null || nums.length == 0) return;
+        int p1 = 0;
+        int p2 = nums.length - 1;
+        for (int i = 0; i <= p2; ++i) {
+            while (i <= p2 && nums[i] == 2) {
+                int temp = nums[i];
+                nums[i] = nums[p2];
+                nums[p2] = temp;
+                --p2;
+            }
+            if (nums[i] == 0) {
+                int temp = nums[i];
+                nums[i] = nums[p1];
+                nums[p1] = temp;
+                ++p1;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         String s = "abcabcbb";
         Algorithm algorithm = new Algorithm();
