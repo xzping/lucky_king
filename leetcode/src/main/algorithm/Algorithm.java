@@ -755,6 +755,92 @@ public class Algorithm {
         }
     }
 
+    /**
+     * 括号的生成
+     * 深度优先遍历 - 做减法
+     *
+     * @param n
+     * @return
+     */
+    public List<String> generateParenthesis(int n) {
+        List<String> res = new ArrayList<>();
+        if (n == 0) {
+            return res;
+        }
+        dfs("", n, n, res);
+        return res;
+    }
+
+    /**
+     * @param curStr 当前递归得到的结果
+     * @param left   左括号还有几个可以使用
+     * @param right  右括号还有几个可以使用
+     * @param res    结果集
+     */
+    private void dfs(String curStr, int left, int right, List<String> res) {
+        // 因为每一次尝试，都使用新的字符串变量，所以无需回溯
+        // 在递归终止的时候，直接把它添加到结果集即可
+        if (left == 0 && right == 0) {
+            res.add(curStr);
+            return;
+        }
+
+        // 剪枝（如图，左括号可以使用的个数严格大于右括号可以使用的个数，才剪枝，注意这个细节）
+        if (left > right) {
+            return;
+        }
+
+        if (left > 0) {
+            dfs(curStr + "(", left - 1, right, res);
+        }
+
+        if (right > 0) {
+            dfs(curStr + ")", left, right - 1, res);
+        }
+    }
+
+    /**
+     * 括号的生成
+     * 深度优先遍历 - 做加法
+     *
+     * @param n
+     * @return
+     */
+    public List<String> generateParenthesis2(int n) {
+        List<String> res = new ArrayList<>();
+        if (n == 0) {
+            return res;
+        }
+        dfs2("", 0, 0, n, res);
+        return res;
+    }
+
+    /**
+     * @param curStr 当前递归得到的结果
+     * @param left   左括号已经用了几个
+     * @param right  右括号已经用了几个
+     * @param n      左括号、右括号一共得用几个
+     * @param res    结果集
+     */
+    private void dfs2(String curStr, int left, int right, int n, List<String> res) {
+        if (left == n && right == n) {
+            res.add(curStr);
+            return;
+        }
+
+        // 剪枝
+        if (left < right) {
+            return;
+        }
+
+        if (left < n) {
+            dfs2(curStr + "(", left + 1, right, n, res);
+        }
+        if (right < n) {
+            dfs2(curStr + ")", left, right + 1, n, res);
+        }
+    }
+
     public static void main(String[] args) {
         String s = "abcabcbb";
         Algorithm algorithm = new Algorithm();
