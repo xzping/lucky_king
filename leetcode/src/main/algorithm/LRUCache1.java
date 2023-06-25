@@ -5,11 +5,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class LRUCache {
+public class LRUCache1 {
     private LinkedHashMap<Integer, Integer> cache;
     private int capacity;
 
-    public LRUCache(int capacity) {
+    public LRUCache1(int capacity) {
         cache = new LinkedHashMap<>(capacity);
         this.capacity = capacity;
     }

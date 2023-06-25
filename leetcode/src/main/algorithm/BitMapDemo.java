@@ -1,4 +1,4 @@
-package main.algorithm;
+package algorithm;
 
 public class BitMapDemo {
     // 保存数据的数组
