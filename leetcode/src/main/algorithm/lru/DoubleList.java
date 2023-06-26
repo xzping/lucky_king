@@ -7,7 +7,7 @@ public class DoubleList {
     public DoubleList() {
         // 初始化双向链表的数据
         head = new Node(0, 0);
-        head = new Node(0, 0);
+        tail = new Node(0, 0);
         head.next = tail;
         tail.prev = head;
         size = 0;
