@@ -252,6 +252,15 @@ public class TreeDemo {
     }
 
     /* 平衡二叉树 */
+    public boolean isBalanced(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        int left = maxDepth(root.left);
+        int right = maxDepth(root.right);
+        return Math.abs(left - right) < 2 && isBalanced(root.left) && isBalanced(root.right);
+    }
+
     /* 对称二叉树 */
     public boolean isSymmetric(TreeNode root) {
         if (root == null) {
@@ -340,11 +349,35 @@ public class TreeDemo {
             return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
         }
     }
-}
 
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    /* ...... */
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        /* ...... */
+
+        public TreeNode getLeft() {
+            return left;
+        }
+
+        public void setLeft(TreeNode left) {
+            this.left = left;
+        }
+
+        public TreeNode getRight() {
+            return right;
+        }
+
+        public void setRight(TreeNode right) {
+            this.right = right;
+        }
+
+        public int getVal() {
+            return val;
+        }
+
+        public void setVal(int val) {
+            this.val = val;
+        }
+    }
 }

@@ -725,6 +725,24 @@ public class Algorithm {
     }
 
     /**
+     * 乘积最大子数组，记住前一个数组的最大和最小值，相比子数组和而言，需要记一个最小值，因为可能有反转，例如负数反转
+     * dp[i] = max(nums[i]*pre_max, nums[i]*pre_min, nums[i])
+      */
+    public int maxProduct(int[] nums) {
+        int preMax = nums[0];
+        int preMin = nums[0];
+        int max = nums[0];
+        for (int i = 1; i< nums.length; i++){
+           int curMax = Math.max(Math.max(nums[i] * preMax, nums[i] * preMin), nums[i]);
+           int curMin = Math.min(Math.min(nums[i] * preMax, nums[i] * preMin), nums[i]);
+           preMax = curMax;
+           preMin = curMin;
+           max = Math.max(max, curMax);
+        }
+        return max;
+    }
+
+    /**
      * 颜色分类 0 1 2
      * 双指针
      *
@@ -834,6 +852,50 @@ public class Algorithm {
         if (right < n) {
             dfs2(curStr + ")", left, right + 1, n, res);
         }
+    }
+
+    /**
+     * 和为k的子数组
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int subarraySum(int[] nums, int k) {
+        int res = 0;
+        for (int j = 0; j < nums.length; j++) {
+            int num = 0;
+            for (int i = j; i >= 0; i--) {
+                num += nums[i];
+                if (num == k) {
+                    res++;
+                }
+            }
+        }
+        return res;
+    }
+
+    /**
+     * 最短无序子串
+     *
+     * @param nums
+     * @return
+     */
+    public int findUnsortedSubarray(int[] nums) {
+        if (nums == null || nums.length <= 1) return 0;
+        // 先对nums排序
+        int[] copy = nums.clone();
+        Arrays.sort(copy);
+        int i = 0;
+        int j = nums.length - 1;
+        while (i < j && nums[i] == copy[i]) {
+            i++;
+        }
+        while (i < j && nums[j] == copy[j]) {
+            j--;
+        }
+        if (i == j) return 0; // 整体有序
+        return j - i + 1;
     }
 
     public static void main(String[] args) {
