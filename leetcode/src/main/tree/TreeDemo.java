@@ -337,6 +337,30 @@ public class TreeDemo {
         }
     }
 
+    // 二叉树的公共祖先，不借助其他数据结构存储节点
+    // 采用递归的方式，结束的条件是：p q 在curNode左右子树 or (p == root || q == root)
+    public TreeNode lowestCommonAncestorV2(TreeNode root, TreeNode p, TreeNode q) {
+        // 到底了还没找到，返回null
+        if (root == null) return null;
+        // 如果找到了p或q，则返回它
+        if (root == p || root == q) {
+            return root;
+        }
+        TreeNode left = lowestCommonAncestorV2(root.left, p, q); // left记录p或q是在左子树找到的
+        TreeNode right = lowestCommonAncestorV2(root.right, p, q); // right记录p或q是在右子树找到的
+        // 如果left和right都找到了节点，那么肯定是一个记录了p，另一个记录p
+        // 它们分别在以root为根节点的左右子树中，所以root就是它们最近的公共祖先
+        if (left != null && right != null) {
+            return root;
+        }
+        // 由于节点p,q一定是在二叉树中，left和right不会同时为null
+        // 若left != null && right == null，说明在左子树找到了p或q，而在右子树找不到p或q，则剩下另一个也在左子树
+        // 所以left就是最近公共祖先
+        // 反之亦然
+        return left != null ? left : right;
+    }
+
+
     /* 相同的树 */
     public boolean isSameTree(TreeNode p, TreeNode q) {
         if (p == null && q == null) {
@@ -355,29 +379,5 @@ public class TreeDemo {
         TreeNode left;
         TreeNode right;
         /* ...... */
-
-        public TreeNode getLeft() {
-            return left;
-        }
-
-        public void setLeft(TreeNode left) {
-            this.left = left;
-        }
-
-        public TreeNode getRight() {
-            return right;
-        }
-
-        public void setRight(TreeNode right) {
-            this.right = right;
-        }
-
-        public int getVal() {
-            return val;
-        }
-
-        public void setVal(int val) {
-            this.val = val;
-        }
     }
 }
