@@ -1,4 +1,4 @@
-package main.design.proxy.staticp;
+package design.proxy.staticp;
 
 public class TrainStation implements TicketSubject {
     @Override

@@ -1,4 +1,4 @@
-package main.design.proxy.staticp;
+package design.proxy.staticp;
 
 /**
  * 火车站售票点的代理，同样需要实现ticket接口

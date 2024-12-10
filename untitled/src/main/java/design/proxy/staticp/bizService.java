@@ -1,4 +1,4 @@
-package main.design.proxy.staticp;
+package design.proxy.staticp;
 
 /**
  * 静态代理：缺点是需要为每一个被代理对象新增一个代理类，繁琐易错

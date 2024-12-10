@@ -309,7 +309,6 @@ public class TreeDemo {
     /* 二叉树的最近公共祖先 */
     Map<Integer, TreeNode> parents = new HashMap<>(); // 记录每个节点的父节点
     Set<Integer> visits = new HashSet<>(); // visits记录p节点的所有父节点
-
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         dfs(root);
         while (p != null) {
@@ -325,7 +324,6 @@ public class TreeDemo {
         }
         return null;
     }
-
     private void dfs(TreeNode node) {
         if (node.left != null) {
             parents.put(node.left.val, node);
