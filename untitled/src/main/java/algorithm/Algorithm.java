@@ -160,7 +160,7 @@ public class Algorithm {
                 // 一个一个点进行寻找最大区域
                 if (grid[i][j] == 1) {
                     curArea = 0;
-                    // 基于改点进行dfs
+                    // 基于该点进行dfs
                     maxArea(i, j, grid);
                     res = Math.max(res, curArea);
                 }
@@ -181,6 +181,7 @@ public class Algorithm {
         }
     }
 
+    // 根节点到叶子节点数字之和
     // 深度优先遍历
     public int sumNumbers(TreeNode root) {
         return dfs(root, 0);
@@ -208,6 +209,7 @@ public class Algorithm {
             TreeNode tmp = queue.poll();
             int num = numQueue.poll();
             if (tmp.left == null && tmp.right == null) {
+                // 找到最深的层，进行求和
                 sum += num;
             } else {
                 if (tmp.left != null) {
@@ -217,6 +219,32 @@ public class Algorithm {
                 if (tmp.right != null) {
                     queue.offer(tmp.right);
                     numQueue.offer(num * 10 + tmp.right.val);
+                }
+            }
+        }
+        return sum;
+    }
+
+    // 不使用第二个队列，使用层序遍历计算根节点到叶子结点之和
+    public int sumNumbers3(TreeNode root) {
+        if (root == null) return 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int sum = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (node.left == null && node.right == null) {
+                    sum += node.val;
+                }
+                if (node.left != null) {
+                    node.left.val = node.val * 10 + node.left.val;
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    node.right.val = node.val * 10 + node.right.val;
+                    queue.offer(node.right);
                 }
             }
         }
@@ -727,17 +755,17 @@ public class Algorithm {
     /**
      * 乘积最大子数组，记住前一个数组的最大和最小值，相比子数组和而言，需要记一个最小值，因为可能有反转，例如负数反转
      * dp[i] = max(nums[i]*pre_max, nums[i]*pre_min, nums[i])
-      */
+     */
     public int maxProduct(int[] nums) {
         int preMax = nums[0];
         int preMin = nums[0];
         int max = nums[0];
-        for (int i = 1; i< nums.length; i++){
-           int curMax = Math.max(Math.max(nums[i] * preMax, nums[i] * preMin), nums[i]);
-           int curMin = Math.min(Math.min(nums[i] * preMax, nums[i] * preMin), nums[i]);
-           preMax = curMax;
-           preMin = curMin;
-           max = Math.max(max, curMax);
+        for (int i = 1; i < nums.length; i++) {
+            int curMax = Math.max(Math.max(nums[i] * preMax, nums[i] * preMin), nums[i]);
+            int curMin = Math.min(Math.min(nums[i] * preMax, nums[i] * preMin), nums[i]);
+            preMax = curMax;
+            preMin = curMin;
+            max = Math.max(max, curMax);
         }
         return max;
     }
