@@ -58,7 +58,7 @@ public class Algorithm {
              因此此时新的 s.charAt(i) 已经进入到 当前最长的子段中！
              */
             if (map.containsKey(s.charAt(i))) {
-                left = Math.max(left, map.get(s.charAt(i)) + 1); // 这一步是为什么？计算左边的窗口位置？
+                left = Math.max(left, map.get(s.charAt(i)) + 1); // left不可以回退，所以取max
             }
             map.put(s.charAt(i), i);
             max = Math.max(max, i - left + 1); // i-left+1是窗口大小
@@ -889,7 +889,7 @@ public class Algorithm {
      * @param k
      * @return
      */
-    public int subarraySum(int[] nums, int k) {
+    public int subArraySum(int[] nums, int k) {
         int res = 0;
         for (int j = 0; j < nums.length; j++) {
             int num = 0;
@@ -909,7 +909,7 @@ public class Algorithm {
      * @param nums
      * @return
      */
-    public int findUnsortedSubarray(int[] nums) {
+    public int findUnsortedSubArray(int[] nums) {
         if (nums == null || nums.length <= 1) return 0;
         // 先对nums排序
         int[] copy = nums.clone();
@@ -924,22 +924,6 @@ public class Algorithm {
         }
         if (i == j) return 0; // 整体有序
         return j - i + 1;
-    }
-
-    public static void main(String[] args) {
-        String s = "abcabcbb";
-        Algorithm algorithm = new Algorithm();
-        System.out.println(algorithm.lengthOfLongestSubstring(s));
-
-        System.out.println(algorithm.getSum2(2, 3));
-
-        String ip = "25525511135";
-        System.out.println(algorithm.restoreIpAddresses(ip));
-
-        String s2 = "abbcccddddeeeeedcba";
-        System.out.println(algorithm.maxPower(s2));
-
-        System.out.println(algorithm.isPalindromeString("abaa"));
     }
 }
 

@@ -310,12 +310,15 @@ public class TreeDemo {
     Map<Integer, TreeNode> parents = new HashMap<>(); // 记录每个节点的父节点
     Set<Integer> visits = new HashSet<>(); // visits记录p节点的所有父节点
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        // 采集所有节点的父节点
         dfs(root);
+        // 采集p节点的所有父节点
         while (p != null) {
             visits.add(p.val);
             p = parents.get(p.val); // 找到p的父节点
         }
 
+        // 逐个上钻最最近的祖先
         while (q != null) {
             if (visits.contains(q.val)) {
                 return q;
