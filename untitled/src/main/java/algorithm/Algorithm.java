@@ -925,6 +925,81 @@ public class Algorithm {
         if (i == j) return 0; // 整体有序
         return j - i + 1;
     }
+
+    // 全排列 回溯算法
+    public List<List<Integer>> permute(int[] nums) {
+        int len = nums.length;
+        List<List<Integer>> res = new ArrayList<>();
+        if (len == 0) {
+            return res;
+        }
+        boolean[] used = new boolean[len];
+        Deque<Integer> path = new ArrayDeque<>();
+        dfs(nums, len, 0, used, path, res);
+        return res;
+    }
+
+    private void dfs(int[] nums, int len, int depth, boolean[] used, Deque<Integer> path, List<List<Integer>> res) {
+        if (depth == len) {
+            res.add(new ArrayList<>(path));
+            return;
+        }
+        for (int i = 0; i < len; i++) {
+            if (!used[i]) {
+                path.addLast(nums[i]);
+                used[i] = true;
+                System.out.println("开始递归前 ==> " + path);
+                dfs(nums, len, depth + 1, used, path, res);
+
+                // 删除 回溯
+                used[i] = false;
+                path.removeLast();
+                System.out.println("开始递归后 ==> " + path);
+            }
+        }
+    }
+
+    // 数组子集 回溯算法
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> sub = new ArrayList<>();
+        dfs(nums, 0, res, sub);
+        return res;
+    }
+
+    private void dfs(int[] nums, int depth, List<List<Integer>> res, List<Integer> sub) {
+        res.add(new ArrayList<>(sub));
+        for (int i = depth; i < nums.length; i++) {
+            sub.add(nums[i]);
+            dfs(nums, i + 1, res, sub);
+            sub.remove(sub.size() - 1);
+        }
+    }
+
+    // 旋转90度的图像二维矩阵
+    public void rotate(int[][] matrix) {
+        int n = matrix.length;
+        int[][] newMatrix = new int[n][n];
+        // fill
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                // 重点在找到这个公式
+                newMatrix[j][n-i-1] = matrix[i][j];
+            }
+        }
+        // copy
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = newMatrix[i][j];
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Algorithm algorithm = new Algorithm();
+        int[] nums = {1, 2, 3};
+        algorithm.permute(nums);
+    }
 }
 
 class ListNode {
