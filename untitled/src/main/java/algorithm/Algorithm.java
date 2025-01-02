@@ -959,7 +959,7 @@ public class Algorithm {
         }
     }
 
-    // 数组子集 回溯算法
+    // 数组子集（找到数组的所有子集） 回溯算法
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         List<Integer> sub = new ArrayList<>();
