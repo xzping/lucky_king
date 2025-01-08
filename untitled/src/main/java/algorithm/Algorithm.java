@@ -540,6 +540,47 @@ public class Algorithm {
         return true;
     }
 
+    /**
+     * 回文链表 中点反转比较法
+     * 1->2->3->2->1 true
+     * @param head
+     * @return
+     */
+    public boolean isPalindrome(ListNode head) {
+        ListNode pre = new ListNode(-1);
+        pre.next = head;
+        ListNode fast = pre, slow = pre;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode tail = slow.next;
+        slow.next = null;
+        ListNode head1 = reverse(tail);
+        while (head1 != null && head != null) {
+            if (head1.val != head.val) return false;
+            head1 = head1.next;
+            head = head.next;
+        }
+        return true;
+    }
+
+    // 链表反转 p->q r
+    public ListNode reverse(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode p = head;
+        ListNode q = head.next;
+        ListNode r = null;
+        head.next = null;
+        while (q != null) {
+            r = q.next;
+            q.next = p;
+            p = q;
+            q = r;
+        }
+        return p;
+    }
+
     // 是否为回文数
     public boolean isPalindrome(int x) {
         if (x < 0) {
@@ -568,6 +609,36 @@ public class Algorithm {
             }
             left++;
             right--;
+        }
+        return true;
+    }
+
+    /**
+     * 验证回文串
+     * 输入: s = "A man, a plan, a canal: Panama"
+     * 输出: true
+     * 解释："amanaplanacanalpanama" 是回文串
+     *
+     * @param s
+     * @return boolean
+     */
+    public boolean isPalindrome(String s) {
+        StringBuffer sgood = new StringBuffer();
+        int length = s.length();
+        for (int i = 0; i < length; i++) {
+            char ch = s.charAt(i);
+            if (Character.isLetterOrDigit(ch)) {
+                sgood.append(Character.toLowerCase(ch));
+            }
+        }
+        int n = sgood.length();
+        int left = 0, right = n - 1;
+        while (left < right) {
+            if (sgood.charAt(left) != sgood.charAt(right)) {
+                return false;
+            }
+            ++left;
+            --right;
         }
         return true;
     }
@@ -984,7 +1055,7 @@ public class Algorithm {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 // 重点在找到这个公式
-                newMatrix[j][n-i-1] = matrix[i][j];
+                newMatrix[j][n - i - 1] = matrix[i][j];
             }
         }
         // copy
