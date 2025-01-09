@@ -251,7 +251,12 @@ public class TreeDemo {
         return res;
     }
 
-    /* 平衡二叉树 */
+    /**
+     * 平衡二叉树 左右子树的高度相差小于等于1
+     *
+     * @param root
+     * @return
+     */
     public boolean isBalanced(TreeNode root) {
         if (root == null) {
             return true;
@@ -309,6 +314,7 @@ public class TreeDemo {
     /* 二叉树的最近公共祖先 */
     Map<Integer, TreeNode> parents = new HashMap<>(); // 记录每个节点的父节点
     Set<Integer> visits = new HashSet<>(); // visits记录p节点的所有父节点
+
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         // 采集所有节点的父节点
         dfs(root);
@@ -327,6 +333,7 @@ public class TreeDemo {
         }
         return null;
     }
+
     private void dfs(TreeNode node) {
         if (node.left != null) {
             parents.put(node.left.val, node);
