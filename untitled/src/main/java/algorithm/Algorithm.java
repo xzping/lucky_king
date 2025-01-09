@@ -543,6 +543,7 @@ public class Algorithm {
     /**
      * 回文链表 中点反转比较法
      * 1->2->3->2->1 true
+     *
      * @param head
      * @return
      */
@@ -1087,6 +1088,52 @@ public class Algorithm {
             ans += Math.min(leftMax[i], rightMax[i]) - height[i];
         }
         return ans;
+    }
+
+    /**
+     * 字母异位词分组
+     * 输入: strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+     * 输出: [["bat"],["nat","tan"],["ate","eat","tea"]]
+     * <p>
+     * 方案1：基于字符串排序
+     * 方案2：基于计数
+     *
+     * @param strs
+     * @return
+     */
+    public List<List<String>> groupAnagrams1(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            char[] arr = str.toCharArray();
+            Arrays.sort(arr);
+            String key = new String(arr);
+            List<String> list = map.getOrDefault(key, new ArrayList<>());
+            list.add(str);
+            map.put(key, list);
+        }
+        return new ArrayList<>(map.values());
+    }
+
+    public List<List<String>> groupAnagrams2(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            int[] count = new int[26];
+            char[] arr = str.toCharArray();
+            for (int i = 0; i < arr.length; i++) {
+                count[arr[i] - 'a']++;
+            }
+            StringBuilder key = new StringBuilder();
+            for (int i = 0; i < count.length; i++) {
+                if (count[i] != 0) {
+                    key.append((char) ('a' + i));
+                    key.append(count[i]);
+                }
+            }
+            List<String> list = map.getOrDefault(key.toString(), new ArrayList<>());
+            list.add(str);
+            map.put(key.toString(), list);
+        }
+        return new ArrayList<>(map.values());
     }
 }
 
