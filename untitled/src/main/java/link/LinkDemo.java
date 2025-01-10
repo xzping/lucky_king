@@ -1,8 +1,9 @@
 package link;
 
+import common.ListNode;
+
 public class LinkDemo {
     // 三节点
-
     /**
      * p -> q  r -> x
      * p <- q r -> x
@@ -197,19 +198,5 @@ public class LinkDemo {
         // 移除second即可
         second.next = second.next.next;
         return dummyHead.next;
-    }
-}
-
-class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode(int val) {
-        this.val = val;
-    }
-
-    ListNode(int val, ListNode next) {
-        this.val = val;
-        this.next = next;
     }
 }

@@ -1,5 +1,9 @@
 package algorithm;
 
+import common.ListNode;
+import common.TopKNode;
+import common.TreeNode;
+
 import java.util.*;
 
 public class Algorithm {
@@ -1134,31 +1138,5 @@ public class Algorithm {
             map.put(key.toString(), list);
         }
         return new ArrayList<>(map.values());
-    }
-}
-
-class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode(int val) {
-        this.val = val;
-    }
-}
-
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    // construction...
-}
-
-class TopKNode {
-    String word;
-    int count;
-
-    TopKNode(String word, int count) {
-        this.word = word;
-        this.count = count;
     }
 }

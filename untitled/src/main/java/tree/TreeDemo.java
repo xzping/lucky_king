@@ -1,5 +1,7 @@
 package tree;
 
+import common.TreeNode;
+
 import java.util.*;
 
 public class TreeDemo {
@@ -380,12 +382,5 @@ public class TreeDemo {
         } else {
             return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
         }
-    }
-
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        /* ...... */
     }
 }
