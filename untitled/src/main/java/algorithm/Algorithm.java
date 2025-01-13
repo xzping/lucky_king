@@ -847,7 +847,13 @@ public class Algorithm {
     }
 
     /**
-     * 颜色分类 0 1 2
+     * 颜色分类
+     * 给定一个包含红色、白色和蓝色、共 n 个元素的数组 nums ，原地 对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
+     * <p>
+     * 我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。
+     * <p>
+     * 必须在不使用库内置的 sort 函数的情况下解决这个问题。
+     * <p>
      * 双指针
      *
      * @param nums
@@ -959,7 +965,8 @@ public class Algorithm {
     }
 
     /**
-     * 和为k的子数组
+     * 和为k的子数组（关键字：连续子数组）
+     * 给定一个整数数组和一个整数 k ，请找到该数组中和为 k 的连续子数组的个数。
      *
      * @param nums
      * @param k
@@ -1071,22 +1078,33 @@ public class Algorithm {
         }
     }
 
-    // 接雨水
+    /**
+     * 接雨水
+     * 思路：找凹槽
+     *
+     * @param height
+     * @return
+     */
     public int trap(int[] height) {
         int n = height.length;
         if (n == 0) {
             return 0;
         }
+        // 从左到右遍历找到每个位置左边的最高柱子高度
         int[] leftMax = new int[n];
         leftMax[0] = height[0];
         for (int i = 1; i < n; i++) {
             leftMax[i] = Math.max(leftMax[i - 1], height[i]);
         }
+
+        // 从右到左遍历找到每个位置右边的最高柱子高度
         int[] rightMax = new int[n];
         rightMax[n - 1] = height[n - 1];
         for (int i = n - 2; i >= 0; i--) {
             rightMax[i] = Math.max(rightMax[i + 1], height[i]);
         }
+
+        // 遍历每个位置，计算该位置能接住的雨水量
         int ans = 0;
         for (int i = 0; i < n; i++) {
             ans += Math.min(leftMax[i], rightMax[i]) - height[i];
@@ -1129,8 +1147,9 @@ public class Algorithm {
             StringBuilder key = new StringBuilder();
             for (int i = 0; i < count.length; i++) {
                 if (count[i] != 0) {
-                    key.append((char) ('a' + i));
+                    // key=1c2b
                     key.append(count[i]);
+                    key.append((char) ('a' + i));
                 }
             }
             List<String> list = map.getOrDefault(key.toString(), new ArrayList<>());
